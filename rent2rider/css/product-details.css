@@ -1,0 +1,321 @@
+
+/* ========================================================
+   NAVBAR
+   ======================================================== */
+
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .navbar-brand img {
+            height: 45px;
+            width: auto;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #FF6500;
+        }
+
+        .fixed-search {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            z-index: 1040;
+            background: #fff;
+            padding: 8px 15px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-box img {
+            max-height: 100px;
+            object-fit: contain;
+        }
+
+        #menu-tab,
+        #category-tab {
+            /* color: #FF6500; */
+            color: black;
+        }
+
+        @media (min-width: 992px) {
+            .fixed-search {
+                display: none !important;
+            }
+        }
+
+        .offcanvas-header .btn-close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 9999;
+        }
+
+        .offcanvas-header {
+            position: relative;
+            height: 56px;
+            /* match navbar height */
+            padding: 0;
+        }
+
+        .badge-custom {
+            font-size: 10px;
+            background-color: #FF6500;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+
+
+        /* ========================================================
+   FOOTER
+   ======================================================== */
+.footer-section {
+  background-color: #FFC778;
+  color: #333;
+  padding: 2rem 1rem;
+}
+
+.footer-link {
+  display: block;
+  color: black;
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.c-details {
+  font-size: 13px;
+  color: #222;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 576px) {
+  .footer-section .row > div {
+    text-align: center !important;
+  }
+
+  .footer-section img {
+    margin: 0 auto;
+  }
+}
+
+
+/* ========================================================
+    PRODUCT-DETAILS PAGE
+    ======================================================== */
+
+        .product-details-theme-color {
+            color: #FF6600;
+        }
+
+        .product-details-btn-theme {
+            background-color: #FF6600;
+            color: #fff;
+        }
+
+        .product-details-btn-theme:hover {
+            background-color: #e05500;
+            color: #fff;
+        }
+
+        .product-details-thumb-img {
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .product-details-thumb-img:hover {
+            border: 2px solid #FF6600;
+        }
+
+        .product-details-main-img {
+            border-radius: 10px;
+        }
+
+        .product-details-feature-list i {
+            color: #FF6600;
+            margin-right: 6px;
+        }
+
+        .product-details-faq-section .accordion-button {
+            background-color: #fff;
+            font-weight: 500;
+        }
+
+        .product-details-faq-section .accordion-button:not(.collapsed) {
+            color: #FF6600;
+            background-color: #fff3ed;
+        }
+
+        .product-details-price-text {
+            color: #FF6600;
+            font-weight: 600;
+        }
+
+        /*
+          * Custom CSS to force the gallery to stay in a row on all screen sizes.
+          * We use flexbox to override Bootstrap's default stacking behavior.
+          */
+        @media (max-width: 991.98px) {
+            .product-details-gallery .row {
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: flex-start;
+                gap: 1rem;
+                /* Added spacing between columns */
+            }
+
+            .product-details-gallery .col-md-2 {
+                /* Set a fixed, small width for the thumbnails on mobile */
+                width: 20%;
+                flex-shrink: 0;
+            }
+
+            .product-details-gallery .col-md-10 {
+                /* Let the main image take up the remaining space */
+                width: 80%;
+                flex-grow: 1;
+            }
+        }
+
+
+        /*
+        * ========================================================
+        * GENERAL STYLES
+        * ========================================================
+        */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Light grey background */
+        }
+        
+        :root {
+            --feature-icon: #ff6500;
+        }
+
+        /*
+        * ========================================================
+        * PRODUCT CARD STYLES
+        * ========================================================
+        */
+
+        /* Create a gradient border effect for the product card */
+        .hp-gradient-outline {
+            position: relative;
+            border-radius: 1rem;
+            padding: 1px;
+        }
+
+        .hp-gradient-outline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--feature-icon), transparent 30%) top left,
+                        linear-gradient(-45deg, var(--feature-icon), transparent 30%) bottom right;
+            background-repeat: no-repeat;
+            background-size: 50% 50%;
+            border-radius: 1rem;
+            z-index: 0;
+        }
+
+        /* Style for the actual card content */
+        .hp-gradient-outline .card {
+            position: relative;
+            background: #fff;
+            border-radius: 1rem;
+            z-index: 1;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+            border: none;
+        }
+        
+        /* Image styling within the product cards */
+        .hp-gradient-outline img {
+            max-height: 150px;
+            object-fit: contain; /* Ensures the image fits without distortion */
+            width: 100%;
+        }
+
+        /* Button styling within the product cards */
+        .hp-gradient-outline .btn {
+            background: var(--feature-icon);
+            border-color: var(--feature-icon);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .hp-gradient-outline .btn:hover {
+            background: #e65c00;
+            border-color: #e65c00;
+        }
+
+        /*
+        * ========================================================
+        * MEDIA QUERIES FOR RESPONSIVE LAYOUT
+        * ========================================================
+        */
+
+        /* Styles for screens smaller than 992px (lg breakpoint) */
+        @media (max-width: 991.98px) {
+            /* On small screens, force product cards to be 50% width to show two per row */
+            .hp-product-grid-container .hp-product-card {
+                flex: 0 0 50% !important;
+                max-width: 50% !important;
+            }
+        }
+        
+        /* Styles for screens smaller than 576px (sm breakpoint) */
+        @media (max-width: 575.98px) {
+            /* On extra small screens, force product cards to be 100% width for one per row */
+            .hp-product-grid-container .hp-product-card {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+            }
+            .hp-product-section {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+            .hp-gradient-outline .card {
+                padding: 10px;
+            }
+            .hp-gradient-outline img {
+                max-height: 120px;
+            }
+            .hp-gradient-outline h6 {
+                font-size: 1rem;
+            }
+            .hp-gradient-outline p {
+                font-size: 0.8rem;
+            }
+            .hp-gradient-outline .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    

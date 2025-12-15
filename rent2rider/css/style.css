@@ -1,0 +1,1931 @@
+/* ========================================================
+   GLOBAL VARIABLES & BASE STYLES
+   ======================================================== */
+:root {
+  --accent: #ff6500;
+  --feature-icon: #ff6500;
+  --banner-blue: #0057ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Poppins, sans-serif;
+  background-color: #fff;
+  overflow-x: hidden;
+  /* -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; */
+}
+
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* ========================================================
+   NAVBAR
+   ======================================================== */
+
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .navbar-brand img {
+            height: 45px;
+            width: auto;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #FF6500;
+        }
+
+        .fixed-search {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            z-index: 1040;
+            background: #fff;
+            padding: 8px 15px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-box img {
+            max-height: 100px;
+            object-fit: contain;
+        }
+
+        #menu-tab,
+        #category-tab {
+            /* color: #FF6500; */
+            color: black;
+        }
+
+        @media (min-width: 992px) {
+            .fixed-search {
+                display: none !important;
+            }
+        }
+
+        .offcanvas-header .btn-close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 9999;
+        }
+
+        .offcanvas-header {
+            position: relative;
+            height: 56px;
+            /* match navbar height */
+            padding: 0;
+        }
+
+        .badge-custom {
+            font-size: 10px;
+            background-color: #FF6500;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+ /* ========================================================
+       HERO SECTION
+       ======================================================== */
+        .hero-section {
+            position: relative; /* Needed for absolute positioning of the search box */
+            overflow: hidden; /* Ensures content doesn't spill out */
+        }
+
+        .hero-section .carousel,
+        .hero-section .carousel-inner {
+            width: 100%;
+            min-height: 50vh; /* Default min-height for larger screens */
+        }
+
+        .hero-slide {
+            padding: 5rem 1rem;
+            display: flex;
+            align-items: center;
+            min-height: 50vh; /* Default min-height for larger screens */
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .hero-lead {
+            font-weight: 600;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        .hero-review {
+            font-weight: 600;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .hero-search-box {
+            background: #e7fafa;
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            position: absolute; /* Changed from relative to absolute within hero-section */
+            bottom: 70px;
+            left: 50%; /* Centered by default for smaller screens */
+            transform: translateX(-50%); /* Centered by default for smaller screens */
+            width: 90%;
+            max-width: 500px;
+            z-index: 10; /* Ensure it's above the carousel content */
+        }
+
+        .hero-input,
+        .hero-btn {
+            border-radius: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            font-size: 0.9rem;
+        }
+
+        .hero-btn {
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+        }
+
+        .hero-badge {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            background: #ff6b6b;
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .hero-image.protected {
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .carousel-item img {
+            height: 500px;
+            object-fit: cover;
+        }
+
+        /* --- Media Queries adjustments --- */
+        @media (min-width: 992px) { /* Desktop styles */
+            .hero-search-box {
+                left: 120px; /* Position to the left */
+                transform: translateX(0); /* Remove the centering transform */
+                max-width: 400px; /* Adjust max-width for left alignment */
+                width: auto; /* Allow width to adjust based on content/max-width */
+            }
+        }
+
+        @media (max-width: 991px) { /* Medium devices (tabl ets) and smaller */
+            .hero-slide {
+                min-height: 70vh; /* Increased height for tablets */
+            }
+            .hero-search-box {
+                bottom: 10px;
+                width: 95%;
+            }
+
+            .hero-title {
+                font-size: 2.4rem;
+                text-align: center;
+            }
+
+            .hero-lead,
+            .review,
+            .review p {
+                text-align: center !important;
+            }
+             .review .d-flex {
+                justify-content: center !important;
+            }
+
+            .hero-badge {
+                top: 5%;
+                right: 5%;
+            }
+        }
+
+        @media (max-width: 768px) { /* Small devices (phones) and smaller */
+            .hero-slide {
+                min-height: 85vh; /* Increased height for phones */
+                padding: 4rem 1rem; /* Adjust padding to fit content better */
+                flex-direction: column; /* Ensure vertical stacking */
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .carousel-item img {
+                max-height: 300px; /* Adjust image height for new slide height */
+            }
+            
+            .hero-search-box {
+                bottom: 5px;
+                padding: 0.75rem;
+            }
+            .hero-input,
+            .hero-btn {
+                padding: 6px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 576px) { /* Extra small devices (portrait phones) and smaller */
+            .hero-slide {
+                min-height: 80vh; /* Further increased for very small phones */
+                padding: 3rem 0.5rem; /* Adjust padding */
+                
+            }
+
+            
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .hero-lead,
+            .review,
+            .review p {
+                font-size: 0.95rem;
+                text-align: center !important;
+            }
+
+            .review .d-flex {
+                justify-content: center !important;
+            }
+
+            .hero-badge {
+                top: 2%;
+                right: 2%;
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+
+            .carousel-item img {
+                max-height: 200px; /* Adjust image height */
+            }
+            .hero-search-box {
+                bottom: 40px;
+                width: 90%;
+                border-radius: 0.5rem;
+            }
+        }
+
+/* ========================================================
+   FEATURES SECTION
+   ======================================================== */
+.feature-box {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+  font-size: 1.8rem;
+  color: var(--feature-icon);
+  flex-shrink: 0;
+}
+
+@media (max-width: 576px) {
+ .features-section {
+    margin-top: 2rem; /* Adds space above on mobile */
+  }
+
+  .feature-box {
+    padding: 0.75rem;
+    flex-direction: column; /* Stack icon and text */
+    text-align: center;
+  }
+
+  .feature-icon {
+    font-size: 1.5rem;
+  }
+
+  .feature-box small {
+    font-size: 0.95rem;
+  }
+}
+
+
+
+/* ========================================================
+   PRODUCT SECTION
+   ======================================================== */
+ /* Define a custom CSS variable for the feature icon color */
+        :root {
+            --feature-icon: #ff6500;
+        }
+
+        /* Product Card Styles */
+        .hp-gradient-outline {
+            position: relative;
+            border-radius: 1rem;
+            padding: 1px;
+        }
+
+        /* Create the gradient border effect using a pseudo-element */
+        .hp-gradient-outline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--feature-icon), transparent 30%) top left,
+                linear-gradient(-45deg, var(--feature-icon), transparent 30%) bottom right;
+            background-repeat: no-repeat;
+            background-size: 50% 50%;
+            border-radius: 1rem;
+            z-index: 0;
+        }
+
+        /* Style for the actual card content inside the gradient outline */
+        .hp-gradient-outline .card {
+            position: relative;
+            background: #fff;
+            border-radius: 1rem;
+            z-index: 1;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            /* Subtle shadow for depth */
+        }
+
+        /* Image styling within the product cards */
+        .hp-gradient-outline img {
+            max-height: 150px;
+            object-fit: contain;
+            /* Ensures the image fits without distortion */
+            width: 100%;
+        }
+
+        /* Button styling within the product cards */
+        .hp-gradient-outline .btn {
+            background: var(--feature-icon);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        /* Filter Tabs styling */
+        .hp-filter-tabs {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hp-filter-tabs-btn {
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            margin: 0 10px;
+            border-bottom: 2px solid transparent;
+            /* Transparent border for inactive tabs */
+            padding: 10px;
+        }
+
+        /* Active filter tab styling */
+        .hp-filter-tabs-btn.active {
+            color: var(--feature-icon);
+            border-color: var(--feature-icon);
+            /* Highlight active tab */
+        }
+
+        /* --- Media Queries for Responsive Layout --- */
+
+        /* Styles for screens smaller than 992px (lg breakpoint) */
+        @media (max-width: 991.98px) {
+            /* Product cards display one per row on mobile screens */
+            .hp-product-grid-container .hp-product-card {
+                flex: 0 0 100% !important;
+                /* Forces one card per row */
+                max-width: 100% !important;
+            }
+        }
+
+        /* Styles for screens larger than 991.98px (desktop) */
+        @media (min-width: 992px) {
+            /* MODIFIED FOR 4 CARDS PER ROW ON DESKTOP */
+            .hp-product-grid-container .hp-product-card {
+                flex: 0 0 25% !important;
+                /* 4 cards per row */
+                max-width: 25% !important;
+            }
+        }
+
+        /* Further adjustments for extra small screens (e.g., phones in portrait) */
+        @media (max-width: 575.98px) {
+            .hp-product-section {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            .hp-filter-tabs-btn {
+                font-size: 0.9rem;
+                /* Smaller text for tabs */
+                margin: 0 5px;
+                /* Less margin between tabs */
+                padding: 8px;
+            }
+
+            .hp-gradient-outline .card {
+                padding: 10px;
+                /* Smaller padding for product cards */
+            }
+
+            .hp-gradient-outline img {
+                max-height: 120px;
+                /* Smaller images on small screens */
+            }
+
+            .hp-gradient-outline h6 {
+                font-size: 1rem;
+                /* Smaller product title */
+            }
+
+            .hp-gradient-outline p {
+                font-size: 0.8rem;
+                /* Smaller product price/text */
+            }
+
+            .hp-gradient-outline .btn {
+                padding: 8px 15px;
+                /* Smaller button on cards */
+                font-size: 0.9rem;
+            }
+        }
+
+        */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Light grey background */
+        }
+        
+        :root {
+            --feature-icon: #ff6500;
+        }
+
+        /*
+        * ========================================================
+        * PRODUCT CARD STYLES
+        * ========================================================
+        */
+
+        /* Create a gradient border effect for the product card */
+        .hp-gradient-outline {
+            position: relative;
+            border-radius: 1rem;
+            padding: 1px;
+        }
+
+        .hp-gradient-outline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--feature-icon), transparent 30%) top left,
+                        linear-gradient(-45deg, var(--feature-icon), transparent 30%) bottom right;
+            background-repeat: no-repeat;
+            background-size: 50% 50%;
+            border-radius: 1rem;
+            z-index: 0;
+        }
+
+        /* Style for the actual card content */
+        .hp-gradient-outline .card {
+            position: relative;
+            background: #fff;
+            border-radius: 1rem;
+            z-index: 1;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+            border: none;
+        }
+        
+        /* Image styling within the product cards */
+        .hp-gradient-outline img {
+            max-height: 150px;
+            object-fit: contain; /* Ensures the image fits without distortion */
+            width: 100%;
+        }
+
+        /* Button styling within the product cards */
+        .hp-gradient-outline .btn {
+            background: var(--feature-icon);
+            border-color: var(--feature-icon);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .hp-gradient-outline .btn:hover {
+            background: #e65c00;
+            border-color: #e65c00;
+        }
+
+        /*
+        * ========================================================
+        * MEDIA QUERIES FOR RESPONSIVE LAYOUT
+        * ========================================================
+        */
+
+        /* Styles for screens smaller than 992px (lg breakpoint) */
+        @media (max-width: 991.98px) {
+            /* On small screens, force product cards to be 50% width to show two per row */
+            .hp-product-grid-container .hp-product-card {
+                flex: 0 0 50% !important;
+                max-width: 50% !important;
+            }
+        }
+        
+        /* Styles for screens smaller than 576px (sm breakpoint) */
+        @media (max-width: 575.98px) {
+            /* On extra small screens, force product cards to be 100% width for one per row */
+            .hp-product-grid-container .hp-product-card {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+            }
+            .hp-product-section {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+            .hp-gradient-outline .card {
+                padding: 10px;
+            }
+            .hp-gradient-outline img {
+                max-height: 120px;
+            }
+            .hp-gradient-outline h6 {
+                font-size: 1rem;
+            }
+            .hp-gradient-outline p {
+                font-size: 0.8rem;
+            }
+            .hp-gradient-outline .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+/* ========================================================
+   WHY CHOOSE US SECTION
+   ======================================================== */
+
+.why-card {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.why-card img {
+  max-height: 50px; /* Smaller icon */
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.why-card p {
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.why-banner {
+  background: var(--banner-blue);
+  color: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.why-banner h3 {
+  font-size: 1.25rem;
+}
+
+.why-banner .highlight {
+  background: black;
+  padding: 0 6px;
+  border-radius: 5px;
+}
+
+.why-banner p {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+  .why-card {
+    padding: 0.65rem;
+  }
+
+  .why-card p {
+    font-size: 0.8rem;
+  }
+
+  .why-card img {
+    max-height: 40px;
+  }
+
+  .why-banner h3 {
+    font-size: 1rem;
+  }
+
+  .why-banner p {
+    font-size: 0.8rem;
+  }
+}
+
+/* ========================================================
+   BENEFITS SECTION
+   ======================================================== */
+
+
+.benefits-section {
+            background-color: #fff;
+            padding: 4rem 0;
+            overflow: hidden; /* Helps contain any positioned elements that might slightly overflow */
+        }
+
+        /* Carousel Indicators - Customizing Bootstrap's default */
+        .benefits-carousel-indicators {
+            position: static; /* Move indicators from bottom to below carousel */
+            margin-top: 2rem;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between indicators */
+        }
+
+        .benefits-carousel-indicators [data-bs-target] {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+            border: none; /* Remove default button border */
+        }
+
+        .benefits-carousel-indicators .active {
+            background-color: var(--theme-color-benefits);
+            opacity: 1;
+        }
+
+        /* Benefit Image Wrapper - Holds image and badges */
+        .benefit-image-wrapper {
+            background-color: var(--light-bg-benefits);
+            border-radius: 25px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Essential for positioning badges inside */
+            height: 100%; /* Ensure container takes full height of col */
+            min-height: 280px; /* Minimum height to prevent squishing on smaller screens */
+        }
+
+        .benefit-image-wrapper img {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            border-radius: 25px;
+            object-fit: contain;
+            flex-shrink: 0; /* Prevent image from shrinking if content is too large */
+        }
+
+        /* Benefit Badges - Positioned over the image wrapper */
+        .benefit-badge {
+            background: #fff;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            position: absolute; /* Position relative to .benefit-image-wrapper */
+            z-index: 10;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .badge-top-left {
+            top: 15px;
+            left: 15px;
+        }
+
+        .badge-bottom-right {
+            bottom: 15px;
+            right: 15px;
+        }
+
+        /* Text Styling */
+        .text-theme {
+            color: var(--theme-color-benefits);
+        }
+
+        .benefits-section .carousel-item h2 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .benefits-section .carousel-item .lead {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* --- Mobile Responsiveness (max-width: 767px = md breakpoint minus 1px) --- */
+        @media (max-width: 767.98px) {
+
+            .benefits-section {
+                padding: 2rem 0;
+            }
+
+            .carousel-item > .row {
+                /* We don't need flex-direction: column; here if using order classes correctly */
+                text-align: center; /* Center text on mobile */
+                gap: 2rem; /* Add more space between image and text */
+            }
+
+            .benefits-carousel-indicators {
+                margin-top: 1.5rem;
+            }
+
+            .benefit-image-wrapper {
+                padding: 15px;
+                min-height: 200px; /* Smaller min-height for mobile */
+            }
+
+            .benefit-image-wrapper img {
+                max-width: 65%; /* Make images slightly smaller on mobile */
+            }
+
+            /* Adjust badge size and position for mobile while keeping absolute */
+            .benefit-badge {
+                font-size: 0.7rem; /* Smaller font size for mobile badges */
+                padding: 5px 10px; /* Reduced padding for mobile badges */
+            }
+
+            .badge-top-left {
+                top: 10px; /* Adjusted top position for mobile */
+                left: 10px; /* Adjusted left position for mobile */
+            }
+
+            .badge-bottom-right {
+                bottom: 10px; /* Adjusted bottom position for mobile */
+                right: 10px; /* Adjusted right position for mobile */
+            }
+
+            .benefits-section .carousel-item h2 {
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .benefits-section .carousel-item .lead {
+                font-size: 1rem;
+            }
+
+            .text-theme {
+                text-align: center;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* --- Extra Small Screens (max-width: 575.98px = sm breakpoint minus 1px) --- */
+        @media (max-width: 575.98px) {
+            .benefits-section {
+                padding: 1.5rem 0;
+            }
+
+            .benefit-image-wrapper {
+                padding: 10px;
+                min-height: 180px;
+            }
+
+            .benefit-image-wrapper img {
+                max-width: 60%;
+            }
+
+            .benefits-section .carousel-item h2 {
+                font-size: 22px;
+            }
+
+            .benefits-section .carousel-item .lead {
+                font-size: 0.9rem;
+            }
+
+            .benefit-badge {
+                font-size: 0.65rem; /* Even smaller font size for very small screens */
+                padding: 4px 8px; /* Even smaller padding */
+            }
+
+            
+        }
+
+/* ========================================================
+   ACCESSORIES SECTION
+   ======================================================== */
+.accessories-section {
+  background: url('images/bg-bike-road.jpg') no-repeat center / cover;
+  padding: 60px 15px;
+}
+
+.accessory-box {
+  background: #FFF6DB;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.accessory-items {
+  display: flex;
+  flex-wrap: nowrap; /* Force 1 row */
+  gap: 1.5rem;
+  overflow-x: auto; /* Optional: enable horizontal scroll on small screens */
+}
+
+.accessory-item {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex: 1;
+  min-width: 150px;
+  max-width: 100%;
+  transition: transform 0.2s ease;
+}
+
+.accessory-item:hover {
+  transform: translateY(-4px);
+}
+
+.accessory-item img {
+  max-height: 80px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Add spacing between the 4 items */
+.accessory-box .row.g-3 {
+  row-gap: 1.5rem;
+  column-gap: 1.5rem;
+}
+
+
+.accessory-item img {
+  max-height: 100px;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .accessories-section{
+    text-align: center;
+  }
+
+  .accessory-items {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .accessory-item {
+    flex: 0 0 calc(50% - 0.5rem); /* Two items per row with gap */
+    max-width: calc(50% - 0.5rem);
+    min-width: auto;
+    padding: 0.75rem;
+  }
+
+  .accessory-item img {
+    max-height: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accessory-item {
+    padding: 0.6rem;
+  }
+
+  .accessory-item img {
+    max-height: 60px;
+  }
+
+  .accessory-item p {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+/* ========================================================
+   ABOUT US SECTION
+   ======================================================== */
+.about-section {
+  /* background: #fff6db; */
+  padding: 3rem 1rem;
+}
+
+.about-section h2 {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.about-section p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.about-section a {
+  color: #ffa500;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.about-section a:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+.about-section img {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .about-section {
+    padding: 2rem 1rem;
+  }
+
+  .about-section h2 {
+    text-align: center;
+    font-size: 1.8rem;
+  }
+
+  .about-section .row {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .about-section img {
+    margin-bottom: 1.5rem;
+    max-width: 80%;
+  }
+
+  .about-section p {
+    text-align: justify;
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 576px) {
+  .about-section {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-section p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .about-section img {
+    max-width: 90%;
+    margin: 0 auto 1rem;
+  }
+}
+
+/* ========================================================
+   BIKE RENT GUIDELINES
+   ======================================================== */
+.bike-guideline-section {
+      background-color: #f9f9f9;
+      padding: 3rem 0;
+    }
+
+    .guideline-grid {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      margin: 4rem auto 0;
+    }
+
+    .guideline-item {
+      position: absolute;
+      max-width: 350px;
+      padding: 10px;
+    }
+
+    .top-left {
+      top: 0;
+      left: 0;
+      text-align: right;
+    }
+
+    .top-right {
+      top: 0;
+      right: 0;
+      text-align: left;
+    }
+
+    .bottom-left {
+      bottom: 0;
+      left: 0;
+      text-align: right;
+    }
+
+    .bottom-right {
+      bottom: 0;
+      right: 0;
+      text-align: left;
+    }
+
+    .center-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 300px;
+    }
+
+    .text-gray {
+      color: #ccc;
+    }
+
+    @media (max-width: 767px) {
+
+      .bike-guideline-section{
+        text-align: center;
+      }
+      .guideline-grid {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .guideline-item {
+        position: static;
+        text-align: center !important;
+      }
+
+      .center-image {
+        position: static;
+        transform: none;
+        margin: 1.5rem 0;
+      }
+    }
+
+/* ========================================================
+   REVIEWS SECTION
+   ======================================================== */
+.review-section {
+  background: #fffaf0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 2rem 1rem;
+}
+
+.review-carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.review-carousel .row {
+  flex-wrap: nowrap;               /* Force horizontal scroll */
+  display: flex;
+  gap: 1rem;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  scroll-snap-align: start;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-width: 280px;                /* Ensures responsiveness */
+}
+
+/* Force same height for all cards inside the row */
+.review-carousel .review-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* initials */
+.review-initial {
+  width: 32px;
+  height: 32px;
+  background: #444;
+  color: #fff;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+
+/* ========================================================
+   CONTACT & MAP SECTION
+   ======================================================== */
+.contact-map-section {
+  background: #fffaf0;
+  padding: 2rem 1rem;
+}
+
+.info-box {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.text-orange {
+  color: var(--accent); /* Make sure --accent is defined globally */
+}
+
+.info-box i {
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+
+/* ========================================================
+   FOOTER
+   ======================================================== */
+.footer-section {
+  background-color: #FFC778;
+  color: #333;
+  padding: 2rem 1rem;
+}
+
+.footer-link {
+  display: block;
+  color: black;
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.c-details {
+  font-size: 13px;
+  color: #222;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 576px) {
+  .footer-section .row > div {
+    text-align: center !important;
+  }
+
+  .footer-section img {
+    margin: 0 auto;
+  }
+}
+
+
+
+
+
+/* ========================================================
+   SEARCH PAGE
+   ======================================================== */
+
+   /* Define a custom CSS variable for the feature icon color */
+        :root {
+            --feature-icon: #ff6500;
+        }
+
+        /* Product Card Styles */
+        .gradient-outline {
+            position: relative;
+            border-radius: 1rem;
+            padding: 1px;
+        }
+
+        /* Create the gradient border effect using a pseudo-element */
+        .gradient-outline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--feature-icon), transparent 30%) top left,
+                linear-gradient(-45deg, var(--feature-icon), transparent 30%) bottom right;
+            background-repeat: no-repeat;
+            background-size: 50% 50%;
+            border-radius: 1rem;
+            z-index: 0;
+        }
+
+        /* Style for the actual card content inside the gradient outline */
+        .gradient-outline .card {
+            position: relative;
+            background: #fff;
+            border-radius: 1rem;
+            z-index: 1;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            /* Subtle shadow for depth */
+        }
+
+        /* Image styling within the product cards */
+        .gradient-outline img {
+            max-height: 150px;
+            object-fit: contain;
+            /* Ensures the image fits without distortion */
+            width: 100%;
+        }
+
+        /* Button styling within the product cards */
+        .gradient-outline .btn {
+            background: var(--feature-icon);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        /* Filter Tabs styling */
+        .filter-tabs {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-tabs button {
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            margin: 0 10px;
+            border-bottom: 2px solid transparent;
+            /* Transparent border for inactive tabs */
+            padding: 10px;
+        }
+
+        /* Active filter tab styling */
+        .filter-tabs button.active {
+            color: var(--feature-icon);
+            border-color: var(--feature-icon);
+            /* Highlight active tab */
+        }
+
+        /* Sidebar Filter styling */
+        .filter-sidebar {
+            background-color: #f0fafa;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            /* Default hidden on mobile, shown via JS/media query */
+        }
+
+        .filter-sidebar h5 {
+            font-weight: bold;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-group {
+            margin-top: 1rem;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 1rem;
+        }
+
+        .filter-group:last-child {
+            border-bottom: none;
+        }
+
+        .filter-group label {
+            margin-right: 1rem;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            /* Added spacing for better touch targets */
+            display: block;
+            /* Ensure each label takes full width */
+        }
+
+        /* Style for collapsible header and icon */
+        .filter-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-group-header strong {
+            font-weight: bold;
+        }
+
+        .filter-group-header i {
+            transition: transform 0.3s ease;
+        }
+
+        .filter-group-header[aria-expanded="true"] i {
+            transform: rotate(0deg);
+        }
+
+        .filter-group-header[aria-expanded="false"] i {
+            transform: rotate(-180deg);
+        }
+
+        /* Price Range Slider Styles */
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9rem;
+            /* Slightly smaller font on mobile */
+        }
+
+        .range-slider {
+            position: relative;
+            width: 100%;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            margin: 1.5rem 0;
+        }
+
+        .range-slider-fill {
+            position: absolute;
+            height: 100%;
+            background: var(--feature-icon);
+            border-radius: 2px;
+        }
+
+        .range-slider-thumb {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: var(--feature-icon);
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+            border: 2px solid #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .offcanvas-end .btn-close{
+          margin-left: 300px;
+        }
+
+        /* --- Media Queries for Responsive Layout --- */
+
+        /* Styles for screens smaller than 992px (lg breakpoint) */
+        @media (max-width: 991.98px) {
+            /* Sidebar toggle button (for mobile only) */
+            .sidebar-toggle-btn-container {
+                display: block; /* Show on mobile */
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+
+            /* On mobile, the sidebar should be hidden by default and only shown when the toggle button is clicked */
+            .filter-sidebar {
+                display: none; /* Hide by default on mobile */
+                margin-bottom: 2rem; /* Add space below sidebar when open */
+                padding: 1rem; /* Slightly less padding on smaller screens */
+            }
+
+            /* When the sidebar-col has 'expanded-mobile' class, show the sidebar */
+            .sidebar-col.expanded-mobile .filter-sidebar {
+                display: block !important;
+            }
+
+            /* On mobile, the sidebar-col itself should always be full width */
+            .sidebar-col {
+                width: 100%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            /* The product grid should always be full width on mobile */
+            .product-grid-container {
+                width: 100%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            /* Product cards display one per row on mobile screens */
+            .product-grid-container .product-card {
+                flex: 0 0 100% !important;
+                /* Forces one card per row */
+                max-width: 100% !important;
+            }
+
+            .filter-sidebar h5 {
+                font-size: 1.2rem;
+                /* Adjust title size */
+            }
+
+            .filter-group strong {
+                font-size: 1rem;
+                /* Adjust filter group title size */
+            }
+
+            .filter-group label {
+                font-size: 0.9rem;
+                /* Adjust checkbox/radio label size */
+            }
+        }
+
+        /* Styles for screens larger than 991.98px (desktop) */
+        @media (min-width: 992px) {
+            .sidebar-toggle-btn-container {
+                display: none; /* Hide on desktop */
+            }
+
+            .filter-sidebar {
+                display: block !important; /* Always show sidebar on desktop */
+            }
+
+            .sidebar-col {
+                /* Default desktop layout: 3 cols for sidebar */
+                flex: 0 0 25%;
+                max-width: 25%;
+            }
+
+            .product-grid-container {
+                /* Default desktop layout: 9 cols for products */
+                flex: 0 0 75%;
+                max-width: 75%;
+            }
+            .product-grid-container .product-card {
+                flex: 0 0 33.333333% !important; /* 3 cards per row */
+                max-width: 33.333333% !important;
+            }
+        }
+
+
+        /* Further adjustments for extra small screens (e.g., phones in portrait) */
+        @media (max-width: 575.98px) {
+            .product-section {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            .filter-tabs button {
+                font-size: 0.9rem;
+                /* Smaller text for tabs */
+                margin: 0 5px;
+                /* Less margin between tabs */
+                padding: 8px;
+            }
+
+            .filter-sidebar {
+                padding: 1rem;
+                /* Even less padding */
+            }
+
+            .gradient-outline .card {
+                padding: 10px;
+                /* Smaller padding for product cards */
+            }
+
+            .gradient-outline img {
+                max-height: 120px;
+                /* Smaller images on small screens */
+            }
+
+            .gradient-outline h6 {
+                font-size: 1rem;
+                /* Smaller product title */
+            }
+
+            .gradient-outline p {
+                font-size: 0.8rem;
+                /* Smaller product price/text */
+            }
+
+            .gradient-outline .btn {
+                padding: 8px 15px;
+                /* Smaller button on cards */
+                font-size: 0.9rem;
+            }
+        }
+
+
+        /* ========================================================
+   CHECKOUT PAGE
+   ======================================================== */
+
+        /* Custom colors, using an orange from the original design */
+        .checkout-app-primary-bg-orange { background-color: #ff6600; }
+        .checkout-app-primary-text-orange { color: #ff6600; }
+        .checkout-app-hover-bg-orange-dark:hover { background-color: #e65c00; }
+
+        /* Bootstrap overrides and custom classes for the checkout page */
+        .checkout-card {
+            border-radius: 1.5rem; /* Equivalent to rounded-2xl */
+            background-color: white;
+            border: 1px solid #e5e7eb;
+        }
+        .checkout-form-label {
+            font-weight: 500;
+        }
+
+        /* Ensure table is responsive on smaller screens */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        /* Adjust button sizes for smaller screens */
+        @media (max-width: 768px) {
+            .btn-sm {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* === ANIMATION STYLES START === */
+        
+        /* Keyframes for the bike animation */
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-100vw);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Style for the bike icon to apply the animation */
+        .bike-img {
+            font-size: 2.5rem; /* Adjust size as needed */
+            margin-right: 1rem;
+            animation: slideInFromLeft 1.5s ease-out forwards;    
+        }
+
+        /* Container for the title and icon to handle alignment */
+        .checkout-title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            background-color: #ff6600;
+            border-radius: 0.75rem;
+            padding: 1rem;
+        }
+
+        /* Style for the title word with a background */
+        .checkout-word-with-bg {
+            background-color: rgba(255, 102, 0, 0.2); /* Semi-transparent orange */
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+        }
+
+        /* New style for the table images */
+        .checkout-table-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+
+        /* === ANIMATION STYLES END === */
+
+
+        /* ========================================================
+   COUPON PAGE
+   ======================================================== */
+
+   
+        /* Custom colors, using an orange from the original design */
+        .app-primary-bg-orange { background-color: #ff6600; }
+        .app-primary-text-orange { color: #ff6600; }
+        .app-hover-bg-orange-dark:hover { background-color: #e65c00; }
+
+        /* Bootstrap overrides and custom classes for the coupon page */
+        .coupon-card {
+            border-radius: 1.5rem; /* Equivalent to rounded-2xl */
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .coupon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .coupon-code-container {
+            background-color: #f8f9fa;
+            border: 1px dashed #ccc;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+        }
+        .coupon-code {
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+        /* Styles for the new hero section with background image and overlay */
+        .coupon-hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/coupon-pg-bg.webp');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 1rem;
+            text-align: center;
+            color: #ffffff; /* Set text color to white for better contrast */
+            border-bottom: none; /* Remove the old border */
+        }
+
+        /* ========================================================
+   PROFILE PAGE
+   ======================================================== */
+
+        /* Custom colors, using an orange from the original design */
+        .app-primary-bg-orange {
+            background-color: #ff6600;
+        }
+
+        .app-primary-text-orange {
+            color: #ff6600;
+        }
+
+        .app-hover-bg-orange-dark:hover {
+            background-color: #e65c00;
+        }
+
+        .app-border-orange {
+            border-color: #ff6600;
+        }
+
+        /* Bootstrap overrides and custom classes for profile page */
+        .card {
+            border-radius: 1.5rem;
+            /* Equivalent to rounded-2xl */
+        }
+
+        .profile-card {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            /* Equivalent to border border-gray-200 */
+        }
+
+        .profile-avatar-container {
+            width: 7rem;
+            /* Equivalent to w-28 */
+            height: 7rem;
+            /* Equivalent to h-28 */
+            background-color: #e5e7eb;
+            /* Equivalent to bg-gray-200 */
+            color: #6b7280;
+            /* Equivalent to text-gray-500 */
+        }
+
+        .profile-avatar-icon {
+            width: 5rem;
+            /* Equivalent to w-20 */
+            height: 5rem;
+            /* Equivalent to h-20 */
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            /* Equivalent to text-2xl */
+            font-weight: 700;
+            /* Equivalent to font-bold */
+        }
+
+        .profile-member-badge {
+            font-size: 0.75rem;
+            /* Equivalent to text-xs */
+            font-weight: 600;
+            /* Equivalent to font-semibold */
+            padding: 0.25rem 0.5rem;
+            /* Equivalent to px-2 py-1 */
+            border-radius: 9999px;
+            /* Equivalent to rounded-full */
+        }
+
+        .profile-status {
+            font-weight: 600;
+            /* Equivalent to font-semibold */
+        }
+
+        .profile-email {
+            font-size: 0.875rem;
+            /* Equivalent to text-sm */
+        }
+
+        .profile-logout-link {
+            font-size: 0.875rem;
+            /* Equivalent to text-sm */
+            font-weight: 600;
+            /* Equivalent to font-semibold */
+            color: #ef4444;
+            /* Equivalent to text-red-500 */
+        }
+
+        .profile-logout-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Accordion custom styles */
+        .accordion-button:not(.collapsed) {
+            background-color: #f8f9fa;
+            /* Equivalent to bg-gray-50 */
+            color: #212529;
+            /* Default text color */
+        }
+
+        .accordion-button {
+            background-color: #f8f9fa;
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+            transform: rotate(90deg);
+        }
+
+        .accordion-button::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236c757d'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+        }
+
+        /* ========================================================
+SEARCH PAGE
+======================================================== */
+
+        /* Custom styles for the product cards and filters */
+        .product-card .card {
+            border-radius: 1rem;
+            border: none;
+            /* CHANGE: Add a subtle orange gradient background to the card */
+            background: linear-gradient(145deg, #fff, #ffe6cc);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 101, 0, 0.2);
+        }
+
+        /* * --- CHANGE START ---
+* The key change is here: setting a fixed height for all product images.
+* We keep object-fit: contain to prevent distortion and ensure the images
+* scale nicely within the fixed height.
+*/
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            /* Set a consistent height for all images */
+            object-fit: contain;
+        }
+
+        /* --- CHANGE END --- */
+
+        .product-card .btn {
+            background-color: #FF6500;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card .btn:hover {
+            background-color: #e65c00;
+        }
+
+        .filter-tabs .nav-link {
+            border: 1px solid #ddd;
+            border-radius: 2rem;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tabs .nav-link.active {
+            background-color: #FF6500;
+            color: white !important;
+            border-color: #FF6500;
+        }
+
+        .filter-group {
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+        }
+
+        .filter-group-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-group-header i {
+            transition: transform 0.3s ease;
+        }
+
+        .filter-group-header[aria-expanded="false"] i {
+            transform: rotate(-180deg);
+        }
+
+        .filter-sidebar {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling for the new remove button in the cart */
+        .cart-item-actions .btn-remove {
+            color: #dc3545;
+            /* Bootstrap's danger color */
+            font-size: 1.25rem;
+            padding: 0;
+        }
+
+        .cart-item-actions .btn-remove:hover {
+            color: #c82333;
+        }
+
+        /* Mobile specific styling for filters */
+        @media (max-width: 991.98px) {
+            .filter-tabs {
+                display: none !important;
+            }
+
+            .sidebar-col {
+                order: 1;
+            }
+
+            .product-grid-container {
+                order: 2;
+            }
+
+            .filter-sidebar {
+                display: none;
+            }
+
+            .sidebar-col.expanded-mobile .filter-sidebar {
+                display: block;
+            }
+        }
+
+        
+
+        
