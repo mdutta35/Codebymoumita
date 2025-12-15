@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSRM | Corporate Reports</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <!-- jQuery + Select2 JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <style>
+    :root {
+      --primary-color: #0B5FA8;
+      --secondary-color: #ADD1EB;
+      --light-gray: #f4f6f9;
+      --hover-bg: #eaf3fc;
+      --text-dark: #1a1a1a;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light-gray);
+      color: var(--text-dark);
+    }
+
+    .header {
+      background: #fff;
+      padding: 15px 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header .logo img {
+      width: 100px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-info .circle {
+      width: 36px;
+      height: 36px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #0B5FA8, #1971C2);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      padding: 20px 15px;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 12px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      border-radius: 10px;
+    }
+
+    .sidebar ul li a:hover,
+    .sidebar ul li a.active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar ul li a i {
+      margin-right: 12px;
+    }
+
+    .main {
+      margin-left: 260px;
+      padding: 100px 30px 40px;
+    }
+
+    .card-custom {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    .card-header-custom {
+      background-color: var(--secondary-color);
+      padding: 20px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .card-header-custom h4 {
+      margin: 0;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .balance-box {
+      background-color: #fefefe;
+      padding: 15px 20px;
+      font-weight: bold;
+      color: #e53935;
+      text-align: center;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+      background-color: #084c85;
+      border-color: #084c85;
+    }
+
+    .toggle-sidebar-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--primary-color);
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    table {
+      min-width: 900px;
+    }
+
+    th,
+    td {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .table th {
+      background-color: var(--secondary-color);
+    }
+
+    .table-striped>tbody>tr:nth-of-type(odd) {
+      background-color: #f9fcff;
+    }
+
+    @media (max-width: 992px) {
+      .main {
+        margin-left: 0 !important;
+        padding: 100px 15px 40px;
+      }
+
+      .sidebar {
+        left: -260px;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .toggle-sidebar-btn {
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .user-info span {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .responsive-btn {
+        padding: 4px 10px;
+        font-size: 12px;
+        white-space: nowrap;
+        flex: 1 1 auto;
+      }
+
+      .col-md-7.d-flex {
+        gap: 4px !important;
+      }
+
+      .table-responsive {
+        font-size: 11px;
+      }
+
+      table {
+        min-width: 700px;
+      }
+
+      .table th:nth-child(1),
+      .table td:nth-child(1) {
+        min-width: 50px;
+        max-width: 50px;
+      }
+
+      .table th:nth-child(2),
+      .table td:nth-child(2) {
+        min-width: 140px;
+        max-width: 140px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .table th:nth-child(1),
+      .table td:nth-child(1),
+      .table th:nth-child(2),
+      .table td:nth-child(2) {
+        position: sticky;
+        left: 0;
+        background-color: #f1f1f1;
+        z-index: 1;
+      }
+
+      .table th:nth-child(1),
+      .table td:nth-child(1) {
+        width: 10px;
+      }
+
+      .table th:nth-child(2),
+      .table td:nth-child(2) {
+        width: 50px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="d-flex align-items-center">
+      <button class="toggle-sidebar-btn d-lg-none" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="logo">
+        <img src="images/SSRM lOGO.png" alt="logo">
+      </div>
+    </div>
+    <div class="user-info">
+      <div class="circle">A</div>
+      <span>admin@example.com</span>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="corporateReport.html"><i class="fa fa-file-alt"></i> Corporate Reports</a></li>
+      <li><a class="active" href="price.html"><i class="fa fa-vials"></i> Test Prices</a></li>
+      <li><a href="billRegister.html"><i class="fa fa-book"></i> Bill Register</a></li>
+      <li><a href="ledgerReport.html"><i class="fa fa-book"></i> Ledger Report</a></li>
+      <li><a href="#"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="card-custom">
+      <div class="card-header-custom">
+        <h4>Price List</h4>
+      </div>
+      <div class="balance-box">
+        CC Balance : ₹ 502.00 Dr
+      </div>
+
+      <div class="p-4">
+        <div class="row mb-3 align-items-center">
+          <div class="col-md-5 mb-2 mb-md-0">
+            <select class="form-select" id="testSelect">
+              <option selected disabled value="">Select Test Name</option>
+              <option value="1" data-patient="2000.00" data-center="1400.00">Anti Insulin AntiBody</option>
+              <option value="2" data-patient="2990.00" data-center="2090.00">Parietal Cell AntiBody - IFA in Dilutions</option>
+              <option value="3" data-patient="250.00" data-center="125.00">MicroProtein / Urinary Protein</option>
+              <option value="4" data-patient="6200.00" data-center="4340.00">Urinary 17 Ketosteroid</option>
+              <option value="5" data-patient="7200.00" data-center="5040.00">17 hydroxy-corticosteriod (24 hrs urine)</option>
+              <option value="6" data-patient="6500.00" data-center="4550.00">TBG (Thyroxine Binding Globulin)</option>
+              <option value="7" data-patient="1300.00" data-center="130.00">Prostate Cancer Profile</option>
+              <option value="8" data-patient="650.00" data-center="455.00">Cytomegalovirus (CMV) IgM</option>
+              <option value="9" data-patient="7700.00" data-center="7700.00">Doctor’s Fee (200)</option>
+              <option value="10" data-patient="7700.00" data-center="7700.00">Doctor’s Fee (400)</option>
+              <option value="11" data-patient="7700.00" data-center="7700.00">Doctor’s Fee (500)</option>
+            </select>
+          </div>
+          <div class="col-md-7 d-flex flex-wrap justify-content-center justify-content-md-start gap-2">
+            <button class="btn btn-primary responsive-btn" onclick="addTest()">
+              <i class="fa fa-plus me-2"></i>Add
+            </button>
+            <a id="whatsappShare" class="btn btn-success responsive-btn" target="_blank">
+              <i class="fab fa-whatsapp me-2"></i>Share
+            </a>
+            <button class="btn btn-outline-secondary responsive-btn" onclick="window.print()">
+              <i class="fa fa-file-pdf me-2"></i>Download PDF
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Sl No.</th>
+                <th>Test Name</th>
+                <th>Patient Rate</th>
+                <th>Center Rate</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="testTableBody"></tbody>
+            <tfoot>
+              <tr class="fw-bold">
+                <td colspan="2" class="text-end">Total</td>
+                <td id="totalPatientRate">₹ 0.00</td>
+                <td id="totalCenterRate">₹ 0.00</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#testSelect').select2({
+        placeholder: "Select Test Name",
+        width: '100%'
+      });
+    });
+
+    function toggleSidebar() {
+      document.querySelector('.sidebar').classList.toggle('active');
+    }
+
+    let slCounter = 1;
+
+    function addTest() {
+      const select = document.getElementById("testSelect");
+      const selected = select.options[select.selectedIndex];
+      if (!selected || selected.disabled) return;
+
+      const testName = selected.text;
+      const patientRate = parseFloat(selected.getAttribute("data-patient"));
+      const centerRate = parseFloat(selected.getAttribute("data-center"));
+
+      const tableBody = document.getElementById("testTableBody");
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${slCounter++}</td>
+        <td>${testName}</td>
+        <td class="patient">₹ ${patientRate.toFixed(2)}</td>
+        <td class="center">₹ ${centerRate.toFixed(2)}</td>
+        <td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">Remove</button></td>
+      `;
+
+      tableBody.appendChild(row);
+      updateTotals();
+      $('#testSelect').val(null).trigger('change');
+    }
+
+    function removeRow(btn) {
+      btn.closest("tr").remove();
+      updateSlNumbers();
+      updateTotals();
+    }
+
+    function updateSlNumbers() {
+      const rows = document.querySelectorAll("#testTableBody tr");
+      slCounter = 1;
+      rows.forEach(row => {
+        row.children[0].textContent = slCounter++;
+      });
+    }
+
+    function updateTotals() {
+      let patientTotal = 0, centerTotal = 0;
+      document.querySelectorAll("#testTableBody tr").forEach(row => {
+        const patient = parseFloat(row.querySelector(".patient").textContent.replace(/[^\d.]/g, ""));
+        const center = parseFloat(row.querySelector(".center").textContent.replace(/[^\d.]/g, ""));
+        patientTotal += patient;
+        centerTotal += center;
+      });
+
+      document.getElementById("totalPatientRate").textContent = `₹ ${patientTotal.toFixed(2)}`;
+      document.getElementById("totalCenterRate").textContent = `₹ ${centerTotal.toFixed(2)}`;
+
+      let text = 'Test List:%0A';
+      document.querySelectorAll("#testTableBody tr").forEach(row => {
+        const test = row.children[1].textContent.trim();
+        const patient = row.children[2].textContent.trim();
+        const center = row.children[3].textContent.trim();
+        text += `${test} - Patient: ${patient}, Center: ${center}%0A`;
+      });
+      text += `%0ATotal Patient: ₹ ${patientTotal.toFixed(2)}%0ATotal Center: ₹ ${centerTotal.toFixed(2)}`;
+      document.getElementById("whatsappShare").href = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    }
+
+    // close icon
+    $(document).ready(function () {
+    $('#testSelect').select2({
+      placeholder: "Select Test Name",
+      allowClear: true,
+      width: '100%'
+    });
+  });
+  </script>
+</body>
+
+</html>

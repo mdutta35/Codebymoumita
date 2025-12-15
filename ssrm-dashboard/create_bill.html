@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSRM | Corporate Reports</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <!-- jQuery + Select2 JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <style>
+    :root {
+      --primary-color: #0B5FA8;
+      --secondary-color: #ADD1EB;
+      --light-gray: #f4f6f9;
+      --hover-bg: #eaf3fc;
+      --text-dark: #1a1a1a;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light-gray);
+      color: var(--text-dark);
+    }
+
+    .header {
+      background: #fff;
+      padding: 15px 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header .logo img {
+      width: 100px;
+      height: auto;
+      /* Changed from fixed height to auto for better scaling */
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-info .circle {
+      width: 36px;
+      height: 36px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #0B5FA8, #1971C2);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      display: flex;
+      /* Added display flex */
+      flex-direction: column;
+      /* Added flex-direction */
+      padding: 20px 15px;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      transition: left 0.3s ease;
+      z-index: 999;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 12px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .sidebar ul li a:hover,
+    .sidebar ul li a.active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar ul li a i {
+      margin-right: 12px;
+      font-size: 16px;
+      /* Added font-size */
+    }
+
+    .main {
+      margin-left: 260px;
+      padding: 100px 30px 40px;
+    }
+
+    .card-custom {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    .card-header-custom {
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+      /* Changed from fixed color to variable */
+      padding: 20px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .card-header-custom h4 {
+      margin: 0;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .sub-card-header {
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .balance-box {
+      background-color: #fefefe;
+      padding: 15px 20px;
+      font-weight: bold;
+      color: #e53935;
+      text-align: center;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+      background-color: #084c85;
+      border-color: #084c85;
+    }
+
+    .toggle-sidebar-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--primary-color);
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    table {
+      min-width: 900px;
+    }
+
+    th,
+    td {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .table th {
+      background-color: var(--secondary-color);
+    }
+
+    .table-striped>tbody>tr:nth-of-type(odd) {
+      background-color: #f9fcff;
+    }
+
+    /* Custom CSS for modal from previous interactions */
+    .modal-body-custom {
+      background-color: #ADD1EB;
+    }
+
+    .modal-table-header {
+      background-color: #0B5DA4;
+      color: white;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #0B5DA4;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.3s;
+    }
+
+    .download-btn:hover {
+      background-color: rgba(11, 93, 164, 0.1);
+    }
+
+    /* End custom modal CSS */
+
+    /* New styles for outlined fields in Patient Details section */
+    .field-box {
+      background-color: #fff;
+      /* White background for each field container */
+      border: 1px solid #dee2e6;
+      /* Light gray border */
+      border-radius: 10px;
+      /* Rounded corners */
+      padding: 0.75rem;
+      /* Reduced padding inside the box */
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      /* Subtle shadow */
+      height: 100%;
+      /* Ensure boxes in a row have equal height */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      /* Pushes label to top, input to bottom */
+    }
+
+    .field-box .form-label {
+      margin-bottom: 0.25rem;
+      /* Reduced space between label and input */
+    }
+
+    /* Adjusting radio button spacing within field-box */
+    .field-box .form-check-inline {
+      margin-right: 1rem;
+      /* More consistent spacing for inline radios */
+    }
+
+    /* Styles for the clearable dropdown */
+    .input-group .form-select {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .input-group .btn-outline-secondary {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      /* Remove duplicate border */
+    }
+
+    /* Select2 custom styles to match Bootstrap and theme */
+    .select2-container .select2-selection--single {
+      height: calc(2.25rem + 2px);
+      /* Match Bootstrap form-control height */
+      border: 1px solid #ced4da;
+      border-radius: 0.375rem;
+      /* Match Bootstrap border-radius */
+      padding: 0.375rem 0.75rem;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: calc(2.25rem + 2px);
+      right: 0.5rem;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+      line-height: 1.5;
+      /* Align text vertically */
+      padding-left: 0;
+      /* Remove default padding */
+      color: var(--text-dark);
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__clear {
+      float: right;
+      margin-right: 1.5rem;
+      /* Space for the dropdown arrow */
+      font-size: 1.25rem;
+      line-height: 1.5;
+      color: #dc3545;
+      /* Red color for clear icon */
+    }
+
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+      background-color: var(--primary-color) !important;
+      color: white !important;
+    }
+
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+      border: 1px solid #ced4da;
+      border-radius: 0.375rem;
+    }
+
+    .select2-container--open .select2-dropdown {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(11, 95, 168, 0.25);
+      /* Focus shadow */
+    }
+
+
+    @media (max-width: 992px) {
+      .main {
+        margin-left: 0 !important;
+        padding: 100px 15px 40px;
+      }
+
+      .sidebar {
+        left: -260px;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .toggle-sidebar-btn {
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .user-info span {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .responsive-btn {
+        padding: 4px 10px;
+        font-size: 12px;
+        white-space: nowrap;
+        flex: 1 1 auto;
+      }
+
+      .col-md-7.d-flex {
+        gap: 4px !important;
+      }
+
+      .table-responsive {
+        font-size: 11px;
+      }
+
+      table {
+        min-width: 700px;
+      }
+
+      .table th:nth-child(1),
+      .table td:nth-child(1) {
+        min-width: 50px;
+        max-width: 50px;
+      }
+
+      .table th:nth-child(2),
+      .table td:nth-child(2) {
+        min-width: 140px;
+        max-width: 140px;
+      }
+    }
+
+    @media (max-width: 576px) {
+
+      .table th:nth-child(1),
+      .table td:nth-child(1),
+      .table th:nth-child(2),
+      .table td:nth-child(2) {
+        position: sticky;
+        left: 0;
+        background-color: #f1f1f1;
+        z-index: 1;
+      }
+
+      .table th:nth-child(1),
+      .table td:nth-child(1) {
+        width: 10px;
+      }
+
+      .table th:nth-child(2),
+      .table td:nth-child(2) {
+        width: 50px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="d-flex align-items-center">
+      <button class="toggle-sidebar-btn d-lg-none" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="logo">
+        <img src="images/SSRM lOGO.png" alt="logo">
+      </div>
+    </div>
+    <div class="user-info">
+      <div class="circle">A</div>
+      <span>admin@example.com</span>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="corporateReport.html"><i class="fa fa-file-alt"></i> Corporate Reports</a></li>
+      <li><a class="active" href="price.html"><i class="fa fa-vials"></i> Test Prices</a></li>
+      <li><a href="billRegister.html"><i class="fa fa-book"></i> Bill Register</a></li>
+      <li><a href="ledgerReport.html"><i class="fa fa-book"></i> Ledger Report</a></li>
+      <li><a href="#"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="card-custom">
+      <div class="card-header-custom">
+        <h4>Create Bill</h4>
+      </div>
+      <div class="balance-box">
+        CC Balance : ₹ 502.00 Dr
+      </div>
+
+      <div class="p-4">
+        <!-- Search Filters -->
+        <h5 class="mb-3">Search Filters</h5>
+        <div class="row flex-nowrap g-2 align-items-end mb-4">
+          <div class="col-4 d-flex flex-column">
+            <label class="form-label">Mobile number</label>
+            <div>
+              <input type="text" class="form-control" id="Mobile_no" name="Mobile_no" placeholder="Enter mobile number">
+            </div>
+          </div>
+
+          <div class="col-4 d-flex flex-column">
+            <label class="form-label">Patient Type</label>
+            <div>
+              <select class="form-select" id="patientType" name="patientType"">
+                <option selected>Select an option</option>
+                <option value=" new">New Patient</option>
+                <option value="existing">Existing Patient</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <button class="btn btn-primary w-100">
+              <i class="fa fa-search me-2"></i><span class="d-none d-md-inline">Search</span>
+            </button>
+          </div>
+        </div>
+        <!-- End Search Filters -->
+
+        <!-- New Patient Details Section -->
+        <div class="card-custom mt-4">
+          <div class="card-header-custom" style="background-color: #EEEEEE;">
+            <h5 class="sub-card-header">Patient Details</h5>
+          </div>
+          <div class="p-4">
+            <div class="row g-3 mb-3">
+              <!-- Title Dropdown -->
+              <div class="col-md-2 col-sm-6">
+                <div class="field-box">
+                  <label for="titleDropdown" class="form-label">Title</label>
+                  <select class="form-select" name="titles" id="titles">
+                    <option selected>Select</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Dr.">Dr.</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Patient Name Input -->
+              <div class="col-md-5 col-sm-6">
+                <div class="field-box">
+                  <label for="patientNameInput" class="form-label">Patient Name</label>
+                  <input type="text" class="form-control" id="patientName" name="patientName"
+                    placeholder="Enter patient name">
+                </div>
+              </div>
+              <!-- Patient Alternative Mobile No Input -->
+              <div class="col-md-5 col-sm-12">
+                <div class="field-box">
+                  <label for="altMobileInput" class="form-label">Patient Alternative Mobile No</label>
+                  <input type="tel" class="form-control" id="mobileInput2" name="mobileInput2"
+                    placeholder="Enter alternative mobile number">
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-3 mb-3 align-items-center">
+              <!-- Notify WhatsApp Radio -->
+              <div class="col-md-4 col-sm-12">
+                <div class="field-box">
+                  <label class="form-label d-block">Notify WhatsApp</label>
+                  <div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="notifyWhatsApp" id="whatsappYes" value="yes">
+                      <label class="form-check-label" for="whatsappYes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="notifyWhatsApp" id="whatsappNo" value="no"
+                        checked>
+                      <label class="form-check-label" for="whatsappNo">No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- DOB Input -->
+              <div class="col-md-4 col-sm-6">
+                <div class="field-box">
+                  <label for="dobInput" class="form-label">DOB</label>
+                  <input type="date" class="form-control" id="dob" name="dob"">
+                        </div>
+                    </div>
+                    <!-- Age Input -->
+                    <div class=" col-md-4 col-sm-6">
+                  <div class="field-box">
+                    <label for="ageInput" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="age" nane="age" placeholder="Enter age">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3 mb-3 align-items-center">
+                <!-- Patient Email Input -->
+                <div class="col-md-6 col-sm-12">
+                  <div class="field-box">
+                    <label for="patientEmailInput" class="form-label">Patient Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
+                  </div>
+                </div>
+                <!-- Gender Radio -->
+                <div class="col-md-6 col-sm-12">
+                  <div class="field-box">
+                    <label class="form-label d-block">Gender</label>
+                    <div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male">
+                        <label class="form-check-label" for="genderMale">Male</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female">
+                        <label class="form-check-label" for="genderFemale">Female</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other">
+                        <label class="form-check-label" for="genderOther">Other</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Address Section -->
+              <div class="mb-3">
+                <div class="field-box">
+                  <label for="addressTextarea" class="form-label">Address</label>
+                  <textarea class="form-control" id="address" name="address" rows="3"
+                    placeholder="Enter full address"></textarea>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="landmarkInput" class="form-label">Landmark</label>
+                      <input type="text" class="form-control" id="landmark" name="landmark" placeholder="Enter a nearby landmark">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="pincodeInput" class="form-label">Pincode</label>
+                      <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Enter your pincode">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row g-3">
+                <!-- Barcode Input -->
+                <div class="col-md-6 col-sm-12">
+                  <div class="field-box">
+                    <label for="barcodeInput" class="form-label">Barcode</label>
+                    <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Scan or enter barcode">
+                  </div>
+                </div>
+                <!-- Doctor Dropdown -->
+                <div class="col-md-6 col-sm-12">
+                  <div class="field-box">
+                    <label for="doctorDropdown" class="form-label">Doctor</label>
+                    <select class="form-select" name="doctor" id="doctor">
+                      <option selected>Select Doctor</option>
+                      <option value="Dr. Smith">Dr. Das</option>
+                      <option value="Dr. Johnson">Dr. Mallik</option>
+                      <option value="Dr. Williams">Dr. Khan</option>
+                      <option value="Dr. Brown">Dr. khanna</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End New Patient Details Section -->
+
+          <!-- Price List Section -->
+          <div class="card-custom mt-4">
+            <div class="card-header-custom" style="background-color: #0B5FA8;">
+              <h5 class="sub-card-header" style="color:white;">Price List</h5>
+            </div>
+            <div class="p-4">
+              <div class="row mb-3 align-items-center">
+                <div class="col-md-5 mb-2 mb-md-0">
+                  <select class="form-select" id="testSelect">
+                    <option selected disabled value="" name="TestID" id="TestID">Select Test Name</option>
+                    <option value="1" data-patient="2000.00" data-center="1400.00">Anti Insulin AntiBody</option>
+                    <option value="2" data-patient="2990.00" data-center="2090.00">Parietal Cell AntiBody - IFA in
+                      Dilutions</option>
+                    <option value="3" data-patient="250.00" data-center="125.00">MicroProtein / Urinary Protein</option>
+                    <option value="4" data-patient="6200.00" data-center="4340.00">Urinary 17 Ketosteroid</option>
+                    <option value="5" data-patient="7200.00" data-center="5040.00">17 hydroxy-corticosteriod (24 hrs
+                      urine)</option>
+                    <option value="6" data-patient="6500.00" data-center="4550.00">TBG (Thyroxine Binding Globulin)
+                    </option>
+                    <option value="7" data-patient="1300.00" data-center="130.00">Prostate Cancer Profile</option>
+                    <option value="8" data-patient="650.00" data-center="455.00">Cytomegalovirus (CMV) IgM</option>
+                    <option value="9" data-patient="7700.00" data-center="7700.00">Doctor’s Fee (200)</option>
+                    <option value="10" data-patient="7700.00" data-center="7700.00">Doctor’s Fee (400)</option>
+                    <option value="11" data-patient="7700.00" data-center="7700.00">Doctor’s Fee (500)</option>
+                  </select>
+                </div>
+                <div class="col-md-7 d-flex flex-wrap justify-content-center justify-content-md-start gap-2">
+                  <button class="btn btn-primary responsive-btn" onclick="addTest()">
+                    <i class="fa fa-plus me-2"></i>Add
+                  </button>
+                  <!-- <a id="whatsappShare" class="btn btn-success responsive-btn" target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i>Share
+                        </a>
+                        <button class="btn btn-outline-secondary responsive-btn" onclick="window.print()">
+                            <i class="fa fa-file-pdf me-2"></i>Download PDF
+                        </button> -->
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Sl No.</th>
+                      <th>Test Name</th>
+                      <th>Patient Rate</th>
+                      <th>Center Rate</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="testTableBody"></tbody>
+                  <tfoot>
+                    <tr class="fw-bold">
+                      <td colspan="2" class="text-end">Total</td>
+                      <td id="totalPatientRate">₹ 0.00</td>
+                      <td id="totalCenterRate">₹ 0.00</td>
+                      <td></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- End Price List Section -->
+
+          <!-- Export Button (moved to the end of the main content as it's a general action) -->
+          <div class="d-flex justify-content-end mt-4 mb-3">
+            <button class="btn btn-primary"> Create</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-xl shadow-lg">
+          <!-- Modal Header with custom colors -->
+          <div class="modal-header rounded-t-xl" style="background-color: #ADD1EB;">
+            <h5 class="modal-title text-center w-100" id="reportModalLabel">Report List for Download</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <!-- Modal Body with custom colors -->
+          <div class="modal-body p-4 modal-body-custom">
+            <div class="table-responsive bg-white rounded-lg shadow-sm p-3">
+              <table class="table table-bordered text-center align-middle m-0">
+                <!-- Table Head with custom colors -->
+                <thead class="modal-table-header">
+                  <tr>
+                    <th scope="col">Test Name</th>
+                    <th scope="col">With Header</th>
+                    <th scope="col">Without Header</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Glucose Fasting (Plasma), Glucose PP, LFT (Liver Function Test)</td>
+                    <td>
+                      <a href="#" class="download-btn">
+                        <i class="fa-solid fa-file-pdf fa-2x"></i>
+                        PDF
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#" class="download-btn">
+                        <i class="fa-solid fa-file-pdf fa-2x"></i>
+                        PDF
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Stool Routine</td>
+                    <td>
+                      <a href="#" class="download-btn">
+                        <i class="fa-solid fa-file-pdf fa-2x"></i>
+                        PDF
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#" class="download-btn">
+                        <i class="fa-solid fa-file-pdf fa-2x"></i>
+                        PDF
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer justify-content-center p-3">
+            <button type="button" class="btn px-5" data-bs-dismiss="modal"
+              style="background-color: #084c85;color:white;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('active');
+      }
+
+      let slCounter = 1;
+
+      function addTest() {
+        const select = document.getElementById("testSelect");
+        const selected = select.options[select.selectedIndex];
+        if (!selected || selected.disabled) return;
+
+        const testName = selected.text;
+        const patientRate = parseFloat(selected.getAttribute("data-patient"));
+        const centerRate = parseFloat(selected.getAttribute("data-center"));
+
+        const tableBody = document.getElementById("testTableBody");
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+        <td>${slCounter++}</td>
+        <td>${testName}</td>
+        <td class="patient">₹ ${patientRate.toFixed(2)}</td>
+        <td class="center">₹ ${centerRate.toFixed(2)}</td>
+        <td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">Remove</button></td>
+      `;
+
+        tableBody.appendChild(row);
+        updateTotals();
+        $('#testSelect').val(null).trigger('change'); // Clear Select2 after adding
+      }
+
+      function removeRow(btn) {
+        btn.closest("tr").remove();
+        updateSlNumbers();
+        updateTotals();
+      }
+
+      function updateSlNumbers() {
+        const rows = document.querySelectorAll("#testTableBody tr");
+        slCounter = 1;
+        rows.forEach(row => {
+          row.children[0].textContent = slCounter++;
+        });
+      }
+
+      function updateTotals() {
+        let patientTotal = 0, centerTotal = 0;
+        document.querySelectorAll("#testTableBody tr").forEach(row => {
+          const patient = parseFloat(row.querySelector(".patient").textContent.replace(/[^\d.]/g, ""));
+          const center = parseFloat(row.querySelector(".center").textContent.replace(/[^\d.]/g, ""));
+          patientTotal += patient;
+          centerTotal += center;
+        });
+
+        document.getElementById("totalPatientRate").textContent = `₹ ${patientTotal.toFixed(2)}`;
+        document.getElementById("totalCenterRate").textContent = `₹ ${centerTotal.toFixed(2)}`;
+
+        let text = 'Test List:%0A';
+        document.querySelectorAll("#testTableBody tr").forEach(row => {
+          const test = row.children[1].textContent.trim();
+          const patient = row.children[2].textContent.trim();
+          const center = row.children[3].textContent.trim();
+          text += `${test} - Patient: ${patient}, Center: ${center}%0A`;
+        });
+        text += `%0ATotal Patient: ₹ ${patientTotal.toFixed(2)}%0ATotal Center: ₹ ${centerTotal.toFixed(2)}`;
+        document.getElementById("whatsappShare").href = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      }
+
+      // Initialize Select2 on document ready
+      $(document).ready(function () {
+        $('#testSelect').select2({
+          placeholder: "Select Test Name",
+          allowClear: true, // This enables the 'x' clear button
+          width: '100%'
+        });
+      });
+    </script>
+</body>
+
+</html>
